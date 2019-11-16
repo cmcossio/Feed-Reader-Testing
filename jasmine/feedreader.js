@@ -60,7 +60,7 @@ $(function() {
          */
 
         it('is hidden by default', function() {           
-            expect(document.body).toHaveClass('menu-hidden');
+            expect(document.body).toHaveClass('menu-hidden');  //class 'menu-hidden' from style.css
         });
 
         /* TODO: Write a test that ensures the menu changes
@@ -71,7 +71,9 @@ $(function() {
 
         it('toggles on/off with click', function() {
             let menu = document.querySelector('.menu-icon-link');
-            menu.click();
+            
+            //invoking click function on menu icon to allow test
+            menu.click();                   
             expect(document.body.classList.contains('menu-hidden')).toBe(false);
             menu.click();
             expect(document.body).toHaveClass('menu-hidden');
@@ -80,8 +82,8 @@ $(function() {
 
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
-        let feed = document.querySelector('.feed');
-        let entries = feed.querySelector('.entry');
+        let feed = document.querySelector('.feed'); //store feed container in variable
+        let entries = feed.querySelector('.entry'); //store entry into variable
 
         /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
@@ -89,6 +91,8 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test will require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
+        
+        //ensure loadFeed() completes before test
         beforeEach(function(done) {
             loadFeed(1, function() {
                 done();
@@ -103,14 +107,16 @@ $(function() {
     /* TODO: Write a new test suite named "New Feed Selection" */
 
     describe('New Feed Selection', function() {
-        let feedOne,
+        let feedOne,    //declare suite-level variables for access/later use
             feedTwo;
 
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        beforeEach(function(done) {
+        
+        //load first feed and store contents in variable
+         beforeEach(function(done) {
             loadFeed(0, function() {
                 feedOne = document.querySelector('.feed').innerHTML;
                 done();
@@ -118,10 +124,12 @@ $(function() {
             
         });
         it('populates unique feed', function(done) {
+            
+            //load second feed and store contents in variable
             loadFeed(1, function() {
                 feedTwo = document.querySelector('.feed').innerHTML;
             });
-            expect(feedOne).not.toBe(feedTwo);
+            expect(feedOne).not.toBe(feedTwo);  //compare contents of both feeds
             done();
         });
     }); 
